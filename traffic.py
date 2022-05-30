@@ -12,7 +12,7 @@ from sklearn.model_selection import train_test_split
 EPOCHS = 10
 IMG_WIDTH = 30
 IMG_HEIGHT = 30
-NUM_CATEGORIES = 2 # 43 for traffic data
+NUM_CATEGORIES = 2
 TEST_SIZE = 0.4
 file_types = [("JPEG (*.jpg)", "*.jpg"),
               ("All files (*.*)", "*.*")]
@@ -41,15 +41,7 @@ def main():
     # Evaluate neural network performance
     model.evaluate(x_test,  y_test, verbose=2)
 
-    # img2 = cv2.imread('shouldbe1.jpg')
-    # img2 = cv2.resize(img2, (IMG_WIDTH, IMG_HEIGHT))
-    # p = np.array([img2])
-    # print(model.predict(p)[0][1])
-    # Save model to file
-    # if len(sys.argv) == 3:
-    #     filename = sys.argv[2]
-    #     model.save(filename)
-    #     print(f"Model saved to {filename}.")
+    # Build user interface
     layout = [
         [sg.Image(key="-IMAGE-")],
         [
@@ -84,15 +76,20 @@ def main():
                 sg.popup(result)
     window.close()
 
+# Use the model to predict new image
 def process(image, model):
     img2 = cv2.imread(image)
     img2 = cv2.resize(img2, (IMG_WIDTH, IMG_HEIGHT))
-    p = np.array([img2])
-    print(model.predict(p)[0][1])
-    if int(model.predict(p)[0][1]) == 1:
-        return 'secured'
+    array_img = np.array([img2])
+    """
+    Output of '1.0' means secured, '0.0' means not secured
+    return the result to main() function
+    """
+    if int(model.predict(array_img)[0][1]) == 1:
+        result = 'secured'
     else:
-        return 'not secured'
+        result = 'not secured'
+    return result
 
 def load_data(data_dir):
     """
@@ -127,26 +124,7 @@ def get_model():
     `input_shape` of the first layer is `(IMG_WIDTH, IMG_HEIGHT, 3)`.
     The output layer should have `NUM_CATEGORIES` units, one for each category.
     """
-    """
-    model = tf.keras.models.Sequential([
-        tf.keras.layers.Conv2D(
-            16, (5,5), activation='relu', input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
-        ),
-        tf.keras.layers.Conv2D(
-            32, (2, 2), activation='relu'
-        ),
-        tf.keras.layers.MaxPool2D(pool_size=(2,2)),
-        tf.keras.layers.Conv2D(
-            64, (2, 2), activation='relu'
-        ),
-        tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(128, activation='relu'),
-        tf.keras.layers.Dense(128, activation='relu'),
-        tf.keras.layers.Dropout(0.5),
 
-        tf.keras.layers.Dense(NUM_CATEGORIES, activation='softmax')
-    ])
-    """
     model = tf.keras.models.Sequential([
         tf.keras.layers.Conv2D(
             64, (3, 3), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
