@@ -1,0 +1,28 @@
+# GreenTag AI Authentication System - Requirements
+# Python 3.7+ required
+
+# Deep Learning & Neural Networks
+tensorflow>=2.7.0,<3.0.0
+keras>=2.7.0
+
+# Computer Vision & Image Processing
+opencv-python>=4.5.0
+Pillow>=9.0.0
+
+# Data Processing & Numerical Computing
+numpy>=1.21.0,<2.0.0
+scikit-learn>=1.0.0
+
+# GUI Framework
+PySimpleGUI>=4.60.0
+
+# Optional: For GPU support (uncomment if you have NVIDIA GPU)
+# tensorflow-gpu>=2.7.0
+
+# Optional: For better performance
+# opencv-contrib-python>=4.5.0
+
+# Development Dependencies (optional)
+# pytest>=7.0.0
+# black>=22.0.0
+# flake8>=4.0.0
