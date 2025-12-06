@@ -69,7 +69,7 @@ greentag/
 ├── data/
 │   ├── 0/  # Not secured (counterfeit) images
 │   └── 1/  # Secured (genuine) images
-└── traffic.py
+└── greentag.py
 ```
 
 ## 💻 Usage
@@ -77,7 +77,7 @@ greentag/
 ### Training the Model
 
 ```bash
-python traffic.py data/
+python greentag.py data/
 ```
 
 The model will:
@@ -159,7 +159,7 @@ The model outputs a probability distribution:
 
 ```
 greentag/
-├── traffic.py              # Main application file
+├── greentag.py              # Main application file
 ├── data/                   # Training dataset
 │   ├── 0/                  # Counterfeit samples
 │   └── 1/                  # Genuine samples
@@ -257,7 +257,7 @@ mkdir -p data/0 data/1
 # Add genuine images to data/1/
 
 # 2. Train and launch
-python traffic.py data/
+python greentag.py data/
 
 # 3. Use the GUI to test images
 ```
